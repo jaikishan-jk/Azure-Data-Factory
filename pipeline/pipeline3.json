@@ -5,8 +5,6 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -78,6 +76,26 @@
 				"typeProperties": {
 					"scripts": [
 						{
+							"parameters": [
+								{
+									"name": "PipelineName",
+									"type": "String",
+									"value": {
+										"value": "@pipeline().Pipeline",
+										"type": "Expression"
+									},
+									"direction": "Input"
+								},
+								{
+									"name": "PipelineTime",
+									"type": "Datetime",
+									"value": {
+										"value": "@pipeline().TriggerTime",
+										"type": "Expression"
+									},
+									"direction": "Input"
+								}
+							],
 							"type": "NonQuery",
 							"text": "INSERT INTO Jaikishan.Monitor_Pipeline(PipelineName,Run_Status,Pipeline_trigger_time) VALUES(@PipelineName,'Success',@PipelineTime)"
 						}
@@ -88,8 +106,6 @@
 			{
 				"name": "Script2",
 				"type": "Script",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Copy data1",
@@ -113,8 +129,28 @@
 				"typeProperties": {
 					"scripts": [
 						{
+							"parameters": [
+								{
+									"name": "PipelineTime",
+									"type": "Datetime",
+									"value": {
+										"value": "@pipeline().TriggerTime",
+										"type": "Expression"
+									},
+									"direction": "Input"
+								},
+								{
+									"name": "PipelineName",
+									"type": "String",
+									"value": {
+										"value": "@pipeline().Pipeline",
+										"type": "Expression"
+									},
+									"direction": "Input"
+								}
+							],
 							"type": "NonQuery",
-							"text": "INSERT INTO Jaikishan.LogError(PipelineName,Error_Msg,Pipeline_trigger_time) VALUES(@PipelineName,'Success',@PipelineTime)"
+							"text": "INSERT INTO Jaikishan.LogError(PipelineName,Error_Msg,Pipeline_trigger_time) VALUES(@PipelineName,'Error_Msg',@PipelineTime)"
 						}
 					],
 					"scriptBlockExecutionTimeout": "02:00:00"

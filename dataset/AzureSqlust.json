@@ -1,5 +1,5 @@
 {
-	"name": "AzureSqlAssess",
+	"name": "AzureSqlust",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",
@@ -7,10 +7,6 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
-		"typeProperties": {
-			"schema": "Jaikishan",
-			"table": "SuccessQn"
-		}
+		"schema": []
 	}
 }

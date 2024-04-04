@@ -1,16 +1,16 @@
 {
-	"name": "AzureSqlAssess",
+	"name": "AzureSqlQN3",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureSqlDatabase1",
+			"referenceName": "AzureSqlDatabaseAsses",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "Jaikishan",
-			"table": "SuccessQn"
+			"schema": "dbo",
+			"table": "Employee"
 		}
 	}
 }

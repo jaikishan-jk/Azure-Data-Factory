@@ -6,40 +6,95 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlQN3",
+						"referenceName": "AzureSqlTable12",
 						"type": "DatasetReference"
 					},
-					"name": "empsource"
+					"name": "emp"
 				},
 				{
 					"dataset": {
-						"referenceName": "AzureSqlQnn3",
+						"referenceName": "AzureSqlTable13",
 						"type": "DatasetReference"
 					},
-					"name": "Validationsource"
+					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable14",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "join1"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          EmployeeID as integer,",
+				"          EmployeeName as string,",
+				"          Salary as decimal(10,2),",
+				"          JoiningDate as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> empsource",
-				"source(allowSchemaDrift: true,",
+				"     format: 'table') ~> emp",
+				"source(output(",
+				"          ID as integer,",
+				"          Validdate as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> Validationsource",
-				"empsource, Validationsource join(ERROR_FUNCTION('') > ERROR_FUNCTION(''),",
+				"     format: 'table') ~> source1",
+				"emp, source1 join(JoiningDate > toDate(Validdate),",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     partitionBy('hash', 1),",
-				"     broadcast: 'auto')~> join1"
+				"     broadcast: 'both')~> join1",
+				"join1 derive(SalaryRate = iif(Salary>\r",
+				"60000\r",
+				",\r",
+				"\"High Salary\"\r",
+				",iif(Salary>\r",
+				"55000\r",
+				",\r",
+				"\"Intermediate\"\r",
+				",\r",
+				"\"Low Salary\"\r",
+				"))) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          EmployeeID as integer,",
+				"          EmployeeName as string,",
+				"          Salary as decimal(10,2),",
+				"          SalaryRate as string,",
+				"          JoiningDate as date",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          EmployeeID,",
+				"          EmployeeName,",
+				"          Salary,",
+				"          SalaryRate,",
+				"          JoiningDate",
+				"     )) ~> sink1"
 			]
 		}
 	}

@@ -117,7 +117,7 @@
 					{
 						"activity": "ForEach1",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
@@ -131,8 +131,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlServerSource",
-						"sqlReaderQuery": "Select * from Jai.DimCustomer Where gender = 'M'",
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "Select * from Jai.DimCustomer where gender='M'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -155,13 +155,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SqlServerTable5",
+						"referenceName": "AzureSqlTable10",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTable9",
+						"referenceName": "AzureSqlTable11",
 						"type": "DatasetReference"
 					}
 				]
@@ -173,7 +173,7 @@
 					{
 						"activity": "ForEach1",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
@@ -187,8 +187,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlServerSource",
-						"sqlReaderQuery": "Select * from Jai.DimCustomer Where gender = 'F'",
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "Select * from Jai.DimCustomer where gender='F'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -211,13 +211,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SqlServerTable5",
+						"referenceName": "AzureSqlTable10",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTable9",
+						"referenceName": "AzureSqlTable11",
 						"type": "DatasetReference"
 					}
 				]

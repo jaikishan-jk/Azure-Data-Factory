@@ -1,0 +1,25 @@
+{
+	"name": "ScheduleTriggerAssess",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline4",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 10,
+				"startTime": "2024-04-04T09:46:00",
+				"endTime": "2024-04-05T09:46:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
